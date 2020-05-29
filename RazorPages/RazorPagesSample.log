@@ -1,0 +1,48 @@
+2020-05-29 16:44:40,117  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:44:40,137  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:44:40,138  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:44:40,377  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:45:09,364  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:45:09,378  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:45:09,379  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:45:09,509  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:46:23,869  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:46:23,884  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:46:23,885  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:46:24,010  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:46:31,291  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:46:36,007  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:47:54,111  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:47:54,134  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:47:54,134  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:47:54,271  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:48:22,738  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:49:04,673  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:49:04,692  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:49:04,693  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:49:04,910  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:50:08,467  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:50:08,489  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:50:08,490  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:51:40,312  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:53:24,320  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:53:24,335  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:53:24,336  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:53:24,469  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:54:11,500  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:54:11,515  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:54:11,516  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:54:11,647  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:54:27,564  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:54:27,581  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:54:27,582  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:54:27,692  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:55:37,235  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:55:37,252  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:55:37,253  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:55:37,377  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 2020-05-29 16:58:07,144  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2020-05-29 16:58:07,162  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Hosting environment: Development
+ 2020-05-29 16:58:07,163  INFO Microsoft.Hosting.Lifetime.? [?] - MESSAGE: Content root path: D:\Github\_RazorPagesTemplate\RazorPages
+ 2020-05-29 16:58:07,311  INFO VMenu.Pages.IndexModel.? [?] - MESSAGE: Test
+ 

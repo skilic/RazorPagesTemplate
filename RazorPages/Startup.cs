@@ -45,10 +45,13 @@ namespace VMenu
                  .AddDefaultTokenProviders();
             
             services.AddRazorPages();
+            
+            // Add the localization services to the services container
+            services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddMvc()
-                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                    .AddDataAnnotationsLocalization();
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+                    //.AddDataAnnotationsLocalization();
 
             
             //add email provider
@@ -89,8 +92,8 @@ namespace VMenu
             });
 
 
-            // Add the localization services to the services container
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            
 
             // Configure supported cultures and localization options
             services.Configure<RequestLocalizationOptions>(options =>

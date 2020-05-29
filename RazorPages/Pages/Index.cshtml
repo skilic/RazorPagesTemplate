@@ -1,11 +1,14 @@
 ﻿@page
 @model IndexModel
-@inject IStringLocalizer<IndexModel> localizer
+@inject IStringLocalizer<SharedResource> _sharedLocalizer
 
 @{
     ViewData["Title"] = "Home page";
 }
 
     <div class="text-center">
-        <h1 class="display-4">@localizer["Welcome"]</h1>
+        
+        <h1 class="display-4">@_sharedLocalizer["String1", 0]</h1>
+        <h1 class="display-4">@_sharedLocalizer["String1"]</h1>
+        <h1 class="display-4">@_sharedLocalizer["String1", 2]</h1>
     </div>

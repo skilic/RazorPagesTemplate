@@ -5,3 +5,5 @@
 /.vs
 /RazorPages/bin/Debug
 /RazorPages/obj
+/My.Extensions.Localization.Json/bin
+/My.Extensions.Localization.Json/obj
