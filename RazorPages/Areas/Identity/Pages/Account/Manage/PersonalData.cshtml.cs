@@ -24,6 +24,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 

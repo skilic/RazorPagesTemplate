@@ -1,10 +1,11 @@
 ﻿@page
 @model LogoutModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Log out";
+    ViewData["Title"] = sharedLoc["Log out"];
 }
 
 <header>
     <h1>@ViewData["Title"]</h1>
-    <p>You have successfully logged out of the application.</p>
+    <p>@sharedLoc["You have successfully logged out of the application."]</p>
 </header>

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Localization;
 
 namespace VMenu.Areas.Identity.Pages.Account.Manage
 {
@@ -18,15 +20,21 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<VmUser> _userManager;
         private readonly SignInManager<VmUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly ILogger<EmailModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
 
         public EmailModel(
             UserManager<VmUser> userManager,
             SignInManager<VmUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ILogger<EmailModel> logger,
+            IStringLocalizer<SharedResource> sharedLoc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _logger = logger;
+            _sharedLoc = sharedLoc;
         }
 
         public string Username { get; set; }
@@ -67,6 +75,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -79,6 +88,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -100,14 +110,15 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    _sharedLoc["Confirm your email"].Value,
+                    _sharedLoc["Please confirm your account by", HtmlEncoder.Default.Encode(callbackUrl)].Value
+                    );
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = _sharedLoc["Confirmation link to change email sent"];
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = _sharedLoc["Your email is unchanged."];
             return RedirectToPage();
         }
 
@@ -116,6 +127,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -136,10 +148,11 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                  _sharedLoc["Confirm your email"].Value,
+                  _sharedLoc["Please confirm your account by", HtmlEncoder.Default.Encode(callbackUrl)].Value
+                );
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = _sharedLoc["Verification email sent. Please check your email."];
             return RedirectToPage();
         }
     }

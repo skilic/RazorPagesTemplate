@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using VMenu.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace VMenu.Areas.Identity.Pages.Account
 {
@@ -21,14 +23,14 @@ namespace VMenu.Areas.Identity.Pages.Account
         private readonly UserManager<VmUser> _userManager;
         private readonly SignInManager<VmUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
 
-        public LoginModel(SignInManager<VmUser> signInManager, 
-            ILogger<LoginModel> logger,
-            UserManager<VmUser> userManager)
+        public LoginModel(SignInManager<VmUser> signInManager, ILogger<LoginModel> logger, UserManager<VmUser> userManager, IStringLocalizer<SharedResource> sharedLoc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _sharedLoc = sharedLoc;
         }
 
         [BindProperty]
@@ -97,7 +99,7 @@ namespace VMenu.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, _sharedLoc["Invalid login attempt."]);
                     return Page();
                 }
             }

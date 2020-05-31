@@ -1,7 +1,8 @@
 ﻿@page
 @model ShowRecoveryCodesModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Recovery codes";
+    ViewData["Title"] = sharedLoc["Recovery codes"];
     ViewData["ActivePage"] = "TwoFactorAuthentication";
 }
 
@@ -9,10 +10,10 @@
 <h4>@ViewData["Title"]</h4>
 <div class="alert alert-warning" role="alert">
     <p>
-        <strong>Put these codes in a safe place.</strong>
+        <strong>@sharedLoc["Put these recovery codes in a safe place."]</strong>
     </p>
     <p>
-        If you lose your device and don't have the recovery codes you will lose access to your account.
+        @sharedLoc["If you lose your device..."]
     </p>
 </div>
 <div class="row">

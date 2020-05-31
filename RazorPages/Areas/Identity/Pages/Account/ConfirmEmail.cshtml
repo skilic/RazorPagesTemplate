@@ -1,7 +1,16 @@
 ﻿@page
 @model ConfirmEmailModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = sharedLoc["Confirm email"];
 }
 
 <h1>@ViewData["Title"]</h1>
+@{
+
+    if (Model.IsSucceed)
+    {
+        RedirectToPage("/Pricing");
+    }
+
+}

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using VMenu.Models;
 
@@ -14,15 +15,18 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<VmUser> _userManager;
         private readonly SignInManager<VmUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
 
         public DeletePersonalDataModel(
             UserManager<VmUser> userManager,
             SignInManager<VmUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IStringLocalizer<SharedResource> sharedLoc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _sharedLoc = sharedLoc;
         }
 
         [BindProperty]
@@ -42,6 +46,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -54,6 +59,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -62,7 +68,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Incorrect password.");
+                    ModelState.AddModelError(string.Empty, _sharedLoc["Incorrect password."]);
                     return Page();
                 }
             }
@@ -71,6 +77,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)
             {
+                _logger.LogError($"Unexpected error occurred deleting user with ID '{userId}'.");
                 throw new InvalidOperationException($"Unexpected error occurred deleting user with ID '{userId}'.");
             }
 

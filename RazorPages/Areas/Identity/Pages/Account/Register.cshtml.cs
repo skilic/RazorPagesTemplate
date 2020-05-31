@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
@@ -23,17 +24,20 @@ namespace VMenu.Areas.Identity.Pages.Account
         private readonly UserManager<VmUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IHtmlLocalizer<SharedResource> _htmlPageLoc;
 
         public RegisterModel(
             UserManager<VmUser> userManager,
             SignInManager<VmUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IHtmlLocalizer<SharedResource> htmlPageLoc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _htmlPageLoc = htmlPageLoc;
         }
 
         [BindProperty]
@@ -88,8 +92,10 @@ namespace VMenu.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email,
+                         _htmlPageLoc["Confirm your email"].Value,
+                          _htmlPageLoc["Please confirm your account by", HtmlEncoder.Default.Encode(callbackUrl)].Value
+                        );
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -1,7 +1,9 @@
 ﻿@page
 @model Disable2faModel
+@inject IStringLocalizer<SharedResource> sharedLoc
+@inject IHtmlLocalizer<SharedResource> sharedHtmlLoc
 @{
-    ViewData["Title"] = "Disable two-factor authentication (2FA)";
+    ViewData["Title"] = sharedLoc["Disable two-factor authentication (2FA)"];
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -10,16 +12,15 @@
 
 <div class="alert alert-warning" role="alert">
     <p>
-        <strong>This action only disables 2FA.</strong>
+        <strong>@sharedLoc["This action only disables 2FA."]</strong>
     </p>
     <p>
-        Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a asp-page="./ResetAuthenticator">reset your authenticator keys.</a>
+        @sharedHtmlLoc["Disabling 2FA Description"]
     </p>
 </div>
 
 <div>
     <form method="post" class="form-group">
-        <button class="btn btn-danger" type="submit">Disable 2FA</button>
+        <button class="btn btn-danger" type="submit">@sharedLoc["Disable 2FA"]</button>
     </form>
 </div>

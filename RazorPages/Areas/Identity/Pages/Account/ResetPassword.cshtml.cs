@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 
 namespace VMenu.Areas.Identity.Pages.Account
 {
@@ -16,10 +17,11 @@ namespace VMenu.Areas.Identity.Pages.Account
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<VmUser> _userManager;
-
-        public ResetPasswordModel(UserManager<VmUser> userManager)
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
+        public ResetPasswordModel(UserManager<VmUser> userManager, IStringLocalizer<SharedResource> sharedLoc)
         {
             _userManager = userManager;
+            _sharedLoc = sharedLoc;
         }
 
         [BindProperty]
@@ -48,7 +50,7 @@ namespace VMenu.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest(_sharedLoc["A code must be supplied for password reset."]);
             }
             else
             {

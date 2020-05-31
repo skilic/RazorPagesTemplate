@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using VMenu.Models;
 
@@ -17,11 +18,13 @@ namespace VMenu.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<VmUser> _signInManager;
         private readonly ILogger<LoginWithRecoveryCodeModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
 
-        public LoginWithRecoveryCodeModel(SignInManager<VmUser> signInManager, ILogger<LoginWithRecoveryCodeModel> logger)
+        public LoginWithRecoveryCodeModel(SignInManager<VmUser> signInManager, ILogger<LoginWithRecoveryCodeModel> logger, IStringLocalizer<SharedResource> sharedLoc)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _sharedLoc = sharedLoc;
         }
 
         [BindProperty]
@@ -44,6 +47,7 @@ namespace VMenu.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
+                _logger.LogError("Unable to load two-factor authentication user.");
                 throw new InvalidOperationException($"Unable to load two-factor authentication user.");
             }
 
@@ -62,6 +66,7 @@ namespace VMenu.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
+                _logger.LogError("Unable to load two-factor authentication user.");
                 throw new InvalidOperationException($"Unable to load two-factor authentication user.");
             }
 
@@ -82,7 +87,7 @@ namespace VMenu.Areas.Identity.Pages.Account
             else
             {
                 _logger.LogWarning("Invalid recovery code entered for user with ID '{UserId}' ", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid recovery code entered.");
+                ModelState.AddModelError(string.Empty, _sharedLoc["Invalid recovery code entered."]);
                 return Page();
             }
         }

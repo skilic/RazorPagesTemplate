@@ -1,7 +1,8 @@
 ﻿@page
 @model EmailModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Manage Email";
+    ViewData["Title"] = sharedLoc["Manage Email"];
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
@@ -16,24 +17,24 @@
                 @if (Model.IsEmailConfirmed)
                 {
                     <div class="input-group">
-                        <input asp-for="Email" class="form-control" disabled />
+                        <input asp-for="Email" class="form-control  form-control-light" disabled />
                         <div class="input-group-append">
                             <span class="input-group-text text-success font-weight-bold">✓</span>
                         </div>
                     </div>
                 }
-                 else
+                else
                 {
-                    <input asp-for="Email" class="form-control" disabled />
+                    <input asp-for="Email" class="form-control  form-control-light" disabled />
                     <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
                 }
             </div>
             <div class="form-group">
                 <label asp-for="Input.NewEmail"></label>
-                <input asp-for="Input.NewEmail" class="form-control" />
+                <input asp-for="Input.NewEmail" class="form-control  form-control-light" />
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Change email</button>
+            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">@sharedLoc["Change email"]</button>
         </form>
     </div>
 </div>

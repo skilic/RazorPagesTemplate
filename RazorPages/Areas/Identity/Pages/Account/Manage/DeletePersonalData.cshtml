@@ -1,7 +1,8 @@
 ﻿@page
 @model DeletePersonalDataModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Delete Personal Data";
+    ViewData["Title"] = sharedLoc["Delete Personal Data"];
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
@@ -9,7 +10,7 @@
 
 <div class="alert alert-warning" role="alert">
     <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+        <strong>@sharedLoc["Deleting this data will permanently remove"]</strong>
     </p>
 </div>
 
@@ -20,11 +21,11 @@
         {
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+                <input asp-for="Input.Password" class="form-control  form-control-light" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
         }
-        <button class="btn btn-danger" type="submit">Delete data and close my account</button>
+    <button class="btn btn-danger" type="submit">@sharedLoc["Delete data and close my account"]</button>
     </form>
 </div>
 

@@ -1,7 +1,8 @@
 ﻿@page
 @model EnableAuthenticatorModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Configure authenticator app";
+    ViewData["Title"] = sharedLoc["Configure authenticator app"];
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -36,7 +37,7 @@
                     <form id="send-code" method="post">
                         <div class="form-group">
                             <label asp-for="Input.Code" class="control-label">Verification Code</label>
-                            <input asp-for="Input.Code" class="form-control" autocomplete="off" />
+                            <input asp-for="Input.Code" class="form-control  form-control-light" autocomplete="off" />
                             <span asp-validation-for="Input.Code" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Verify</button>

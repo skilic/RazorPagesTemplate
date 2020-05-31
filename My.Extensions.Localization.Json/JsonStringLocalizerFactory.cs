@@ -38,9 +38,18 @@ namespace My.Extensions.Localization.Json
             var typeInfo = resourceSource.GetTypeInfo();
             var assembly = typeInfo.Assembly;
             var assemblyName = resourceSource.Assembly.GetName().Name;
-            var typeName = $"{assemblyName}.{typeInfo.Name}" == typeInfo.FullName
-                ? typeInfo.Name
-                : typeInfo.FullName.Substring(assemblyName.Length + 1);
+            var typeName = "";
+            if ($"{assemblyName}.{typeInfo.Name}" == typeInfo.FullName)
+            {
+                typeName = typeInfo.Name;
+             }
+            else
+            {
+                if (typeInfo.FullName.Length > assemblyName.Length)
+                    typeName = typeInfo.FullName.Substring(assemblyName.Length + 1);
+                else
+                    typeName = typeInfo.FullName;
+            }
             var resourcesPath = Path.Combine(PathHelpers.GetApplicationRoot(), GetResourcePath(assembly));
 
             typeName = TryFixInnerClassPath(typeName);

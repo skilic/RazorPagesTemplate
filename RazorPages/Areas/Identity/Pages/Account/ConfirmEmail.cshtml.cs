@@ -23,6 +23,9 @@ namespace VMenu.Areas.Identity.Pages.Account
         }
 
         [TempData]
+        public bool IsSucceed { get; set; }
+
+        [TempData]
         public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string userId, string code)
@@ -41,6 +44,7 @@ namespace VMenu.Areas.Identity.Pages.Account
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+            IsSucceed = result.Succeeded;
             return Page();
         }
     }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using VMenu.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace VMenu.Areas.Identity.Pages.Account
 {
@@ -19,11 +20,13 @@ namespace VMenu.Areas.Identity.Pages.Account
     {
         private readonly UserManager<VmUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IHtmlLocalizer<SharedResource> _htmlPageLoc;
 
-        public ForgotPasswordModel(UserManager<VmUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<VmUser> userManager, IEmailSender emailSender, IHtmlLocalizer<SharedResource> htmlPageLoc)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _htmlPageLoc = htmlPageLoc;
         }
 
         [BindProperty]
@@ -59,8 +62,8 @@ namespace VMenu.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    _htmlPageLoc["Reset Password"].Value,
+                   _htmlPageLoc["Please reset your password by", HtmlEncoder.Default.Encode(callbackUrl)].Value );
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

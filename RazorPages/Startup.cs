@@ -50,10 +50,16 @@ namespace VMenu
             services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddMvc()
-                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-                    //.AddDataAnnotationsLocalization();
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                     .AddDataAnnotationsLocalization(o =>
+                     {
+                         o.DataAnnotationLocalizerProvider = (type, factory) =>
+                         {
+                             return factory.Create(typeof(SharedResource));
+                         };
+                     });
 
-            
+
             //add email provider
             var eset = Configuration.GetSection("EmailConfiguration"); 
             services.Configure<EmailSettings>(eset);

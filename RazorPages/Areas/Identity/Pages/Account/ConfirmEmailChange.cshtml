@@ -1,7 +1,8 @@
 ﻿@page
 @model ConfirmEmailChangeModel
+@inject IStringLocalizer<SharedResource> sharedLoc
 @{
-    ViewData["Title"] = "Confirm email change";
+        ViewData["Title"] = sharedLoc["Confirm email change"];
 }
 
 <h1>@ViewData["Title"]</h1>

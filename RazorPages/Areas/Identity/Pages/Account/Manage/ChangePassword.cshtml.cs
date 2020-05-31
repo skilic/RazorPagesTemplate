@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using VMenu.Models;
 
@@ -16,15 +17,18 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<VmUser> _userManager;
         private readonly SignInManager<VmUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
 
         public ChangePasswordModel(
             UserManager<VmUser> userManager,
             SignInManager<VmUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            ILogger<ChangePasswordModel> logger,
+            IStringLocalizer<SharedResource> sharedLoc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _sharedLoc = sharedLoc;
         }
 
         [BindProperty]
@@ -57,6 +61,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -79,6 +84,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -94,7 +100,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = _sharedLoc["Your password has been changed."];
 
             return RedirectToPage();
         }

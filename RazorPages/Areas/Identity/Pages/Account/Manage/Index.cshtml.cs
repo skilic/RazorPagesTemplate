@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace VMenu.Areas.Identity.Pages.Account.Manage
 {
@@ -13,13 +15,18 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<VmUser> _userManager;
         private readonly SignInManager<VmUser> _signInManager;
-
+        private readonly ILogger<IndexModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _sharedLoc;
         public IndexModel(
             UserManager<VmUser> userManager,
-            SignInManager<VmUser> signInManager)
+            SignInManager<VmUser> signInManager,
+            ILogger<IndexModel> logger,
+            IStringLocalizer<SharedResource> sharedLoc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
+            _sharedLoc = sharedLoc;
         }
 
         public string Username { get; set; }
@@ -35,18 +42,28 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(VmUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+          //  var userName = await _userManager.GetUserNameAsync(user);
+            var usr = await _userManager.GetUserAsync(User);
 
-            Username = userName;
+            Username = usr.UserName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = usr.PhoneNumber,
+                FirstName = usr.FirstName,
+                LastName = usr.LastName
             };
         }
 
@@ -55,6 +72,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -67,6 +85,7 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogError($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
@@ -75,20 +94,19 @@ namespace VMenu.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            user.PhoneNumber = Input.PhoneNumber;
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            var setProfileResult = await _userManager.UpdateAsync(user);
+            if (!setProfileResult.Succeeded)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                _logger.LogError("Unexpected error when trying to set profile update");
+                StatusMessage = _sharedLoc["Unexpected error when trying to set profile update."];
+                return RedirectToPage();
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = _sharedLoc["Your profile has been updated"];
             return RedirectToPage();
         }
     }

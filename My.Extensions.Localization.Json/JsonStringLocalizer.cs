@@ -63,13 +63,17 @@ namespace My.Extensions.Localization.Json
                 }
 
                 var qty = -1;
-                if (arguments.Length>0)
+                if ((arguments?.Length > 0) == true)
                 {
-                     qty = int.Parse(arguments[0].ToString());
+                    var qtyTmp = 0;
+                    if (int.TryParse(arguments[0].ToString(), out qtyTmp))
+                        qty = int.Parse(arguments[0].ToString());
                 }
-                
+
                 var format = GetStringSafely(name, qty);
                 var value = string.Format(format ?? name, arguments);
+                if (qty != -1)
+                    value = format ?? name;
 
                 return new LocalizedString(name, value, resourceNotFound: format == null, searchedLocation: _searchedLocation);
             }
